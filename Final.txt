@@ -1,0 +1,150 @@
+ || FINAL BIOINFORMATICS ||
+Feedback from Jonathon:
+Looks like a good paper, but needs a little more:
+
+Description needs more. Is there something else like this? How is this different? Or was this the first? Can you explain the biology and the purpose? Etc. Need some context.
+
+What are the prerequisites? ******
+
+What are the parameters (if none were changed from default, please just say that)?
+
+Please list the actual input and output files.
+
+In-Class Feedback:
+- The big things are going to be seeing that you understand the biological context for what we're representing, and that we understand the data flow.
+- Don't just mindlessly copy data, explain more than less (don't be afraid to explain like I'm five.)
+-Understand WHATs being done, HOW, and WHY it's being done.
+-XREF does not work on the website. There are options (the devs are working on it).
+	-Raw JSON and edit yourself.
+	-Tree view and edit it yourself.
+	-Beta test site you could use.
+- Validate the raw/tree view anyway before you submit it.
+
+
+
+QUESTIONS:
+1. I have not received a grade for HW2. Would you like me to resubmit?
+	- NO 
+2. I think my listed files were both input.
+	-Input is Fastq file in dockerfiles
+	- Use the links in the numbers file with the verbiage below. (Make sure they're paired-end)
+4. Can you expand on what you mean by prerequisites?
+	- Docker is the prerequisite
+5. I am confused as to the input/output files. I have the reference genome, but I'm not sure about the input/output.
+ - I found figures for outputs?
+ 	- Include the figures as they are linked (the links to the images as you copy the download link)
+ - How do the command lines fit here?
+6. Prerequisites: Docker, Terminal?
+	-No terminal would be execution?
+	-Docker [image] as the Environment
+7. Timestamps: if I'm not actually running these, do I use the !!date of publication!!
+8. License: there's one listed in the publication, is this relevant? YES
+
+"For brevity a subsample is listed (5 links)"
+- Make sure the 5 are paired-end as the methods dictate.
+
+ |*| FINAL BCO DRAFT INFO |*|
+ Object ID: https://biocomputeobject.org/BCO_000296/DRAFT
+ Name: PipeCoV: A genomic analysis and variant identification pipeline designed to understand SARS-CoV-2. 
+ Version: 1.0
+ License: https://creativecommons.org/licenses/by/4.0/
+ 
+ Contributors:
+ Renato R. M. Oliviera (Instituto Tecnológico Vale, Universidade Federal de Minas Gerais; renato.renison@gmail.com; https://orcid.org/0000-0002-0111-8209)
+ Tatianne Costa Negri (Instituto Tecnológico Vale; tatianne.negri@pq.itv.org, None)
+ Gisele Nunes (Instituto Tecnológico Vale, None, None)
+ Inácio Medeiros (Universidade Federal do Rio Grande do Norte, None, 0000-0002-3407-218X)
+ Guilherme Araújo (Universidade Federal do Rio Grande do Norte; None; None)
+ Fabricio de Oliveira Silva (Instituto Tecnológico Vale; None; None)
+ Jorge Estefano Santana de Souza (Universidade Federal do Rio Grande do Norte; jorge@imd.ufrn.br; None)
+ Ronnie Alves (Instituto Tecnológico Vale, Universidade Federal do Pará; None; None)
+ Guilherme Oliveira (Instituto Tecnológico Vale; None; https://orcid.org/0000-0003-0054-3438)
+ Lori Krammer (The George Washington University; lorikrammer@gwu.edu; None)
+ 
+USABILITY DOMAIN:
+ 1. COVID-19 is a respiratory disease caused by the SARS-CoV-2 virus. COVID-19 is not the only coronavirus disease, with its precursors Severe Acute Respiratory Syndrome (SARS) and Middle East Respiratory System (MERS) affecting large populations in 2003 and 2012, respectively (https://apps.who.int/iris/bitstream/handle/10665/332197/WHO-2019-nCoV-FAQ-Virus_origin-2020.1-eng.pdf). The World Health Organization recommends social distancing, wearing a mask, and frequent handwashing to protect against the spread of the disease (https://www.who.int/health-topics/coronavirus#tab=tab_1). Additionally, vaccines exist to combat COVID-19 (https://www.cdc.gov/coronavirus/2019-ncov/vaccines/How-Do-I-Get-a-COVID-19-Vaccine.html?s_cid=10500:covid%20vaccines%20available:sem.ga:p:RG:GM:gen:PTN:FY21).
+ 2. Understanding the biology of viruses is a critical precursor to developing targeted vaccines. There are two primary methods to assemble a genome: reference-based or de novo assembly. Several pipelines exist to assemble and analyze SARS-Cov-2 specifically: Viralrecon, V-pipe, SIGNAL, and CLC being a few notable examples (10.7717/peerj.13300). However, these pipelines follow a reference-genome protocol, neglecting to provide key data about nucleotide variants and force the result to follow the same structure as the reference.
+ 3. PipeCov was designed to utilize both methods of reference-based and de novo assembly to provide assembly to variant identification of SARS-CoV-2 viruses. This pipeline contains seven steps that are consolidated into two command lines located in docker containers. The pipeline was validated against amplicon datasets from patients in Telangana, India and extracted from the covid data portal (https://www. covid19dataportal.org/) under Bioproject PRJNA691556 (https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA691556) and compared to the abovementioned pipelines of Viralrecon, V-pipe, Signal and CLC.
+ 
+ Keywords: SARS-CoV-2, Genomics, Variant Identification, Covid19, Pipeline, Annotation, Virus, Bioinformatics
+ 
+Platform: Docker
+ 
+Xref:  *** DOES NOT WORK RIGHT NOW, figure out how to do this Lori *** SEE BCO SLIDES FOR SYNTAX
+-Namespace: nucleotide Name: Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome ID: MN908947.3 Access Time: 2022-04-13
+-Namespace: BioProject at NCBI Name: Severe acute respiratory syndrome coronavirus 2 genome sequencing ID: PRJNA691556 Access Time: 2022-04-13
+ 
+ Steps:
+ 1. Name: Quality Control. 
+ 	Description: The first script encompasses Quality Control. The AdapterRemoval tool removes adapters from sequences, trims any low-quality bases, and discards reads with a base quality Phred score less than 20. Sequences with a length less than 100 are also removed. This tool was run for 120 paired-end sequences. For brevity, a subsample of five inputs are listed.
+	Version: 2.2.3
+	Prerequisites: Docker Filename: qc_docker.sh URI (https://github.com/alvesrco/pipecov/blob/master/pipes/QualityControl/qc_docker.sh) 
+	Access Time: 2022-04-13
+	Input: Access Time: 2022-04-13
+		- Filename: SRX9834782 URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834782[accn]
+		- Filename: SRX9834781 URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834781[accn]
+		- Filename: SRX9834780 URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834780[accn]
+		- Filename: SRX9834779 URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834779[accn]
+		- Filename: SRX9834778 URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834778[accn]
+	Output: Access Time: 2022-04-13
+		- Filename: Ouput_qc (file:///output/output_qc.html)
+
+2. 	Name: Genome Assembly, Annotation, and Variant Calling.
+	Description: The second script, though a single action for the end user, encompasses Genome Assembly, Annotation, and Variant Calling. The genome assembly is completed by mapping to the reference sequence as well as de novo assembly. The produced reads (now high quality) are mapped to the reference genome using BBDuk v38.76, a tool for decontamination, and tools Bowtie2 v2.3.5.1 and Samtools v1.15.1.tar.bz2 for alignment. The reads are de novo assembled using SPAdes, an assembly toolkit containing various pipelines. Version v3.15.0 includes a metaSPAdes pipeline specific to metagenomic data sets. The maximum memory is defined by the user and all other settings are default. Using BWA v.0.7.17, Bowtie2 vs. 2.3.5.1, and Samtools v1.15.1.tar.bz2, two consensus sequences are generated, which are then used to create an intermediate consensus sequence by utilizing the SARS-CoV-2 reference genome. Here, the contigs generated by the SPAdes de novo assembly are aligned to the reference to output a single consensus file incorporating genome information from both assembly methods. After gaps are closed using GapCloser v1.12-r6, genome annotation is done through the Prokka tool (v1.14.5). Finally, Pangolin v2.3.8 performs lineage determination to identify any variants.
+	Version: 38.76, 2.3.5.1, 1.15.1.tar.bz2, 3.15.0, 0.7.17, 1.12-r6, 1.14.5, 2.3.8
+	Prerequisites: Docker Filename: assembly_docker.sh (https://github.com/alvesrco/pipecov/blob/master/pipes/Mapping_Assembly/assembly_docker.sh)
+	Input: Access Time: 2022-04-13
+		- Filename: MN908947.fasta 	URI: https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3?report=fasta
+		- Filename: SRX9834782 		URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834782[accn]
+		- Filename: SRX9834781 		URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834781[accn]
+		- Filename: SRX9834780 		URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834780[accn]
+		- Filename: SRX9834779 		URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834779[accn]
+		- Filename: SRX9834778 		URI: https://www.ncbi.nlm.nih.gov/sra/SRX9834778[accn]
+	Output: Access Time: 2022-04-13
+		-Filename: output_assembly (file:///output/output_assembly.fasta)
+
+Script:
+Filename: qc_docker.sh
+		URI: https://github.com/alvesrco/pipecov/blob/master/pipes/QualityControl/qc_docker.sh
+		Access Time: 2022-04-13
+Filename: assembly_docker.sh
+		URI: https://github.com/alvesrco/pipecov/blob/master/pipes/Mapping_Assembly/assembly_docker.sh
+		Access Time: 2022-04-13
+Script Driver: shell
+Software Prerequisites: 
+	Name: Docker
+	Version: 20.10
+	URI: https://github.com/alvesrco/pipecov/tree/master/dockerfiles
+External Data Endpoints:
+	Name: NCBI SRA
+		URI: https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=691556
+	Name: NCBI Nucleotide
+		URI: https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3?report=fasta
+
+IO Domain: Access Time: 2022-04-13
+Input:
+	Filename: qc_docker.sh
+		URI: https://github.com/alvesrco/pipecov/blob/master/pipes/QualityControl/qc_docker.sh
+		Access Time: 2022-04-13
+	Filename: 
+		URI:
+		Access Time:
+Output:
+	Filename: output_qc
+	mediatype: text/csv
+	URI:file:///output/output_qc.html
+	Filename: output_assembly
+	mediatype: text/csv
+	URI: file:///output/output_assembly.fasta
+
+Parametric Domain:
+	Step 1: 
+		Parameter: Phred Score
+		Value: 20
+		Parameter: minimum match length
+		Value: 100
+	Step 2:
+		Parameter: SPAdes mode
+		Value: "meta"
+ ** NEED ** 
+ 
